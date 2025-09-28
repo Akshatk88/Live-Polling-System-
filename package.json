@@ -13,13 +13,11 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "socket.io": "^4.7.5"
+    "express": "^4.19.2"
   },
   "devDependencies": {
     "jest": "^29.7.0",
     "nodemon": "^3.1.7",
-    "socket.io-client": "^4.8.1",
     "supertest": "^7.0.0"
   }
 }
