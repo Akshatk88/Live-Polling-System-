@@ -51,8 +51,11 @@ function createPollManager(io) {
   }
 
   function registerTeacher(socketId) {
+    // If there's already a teacher with a different socket ID, unregister the old one
     if (state.teacherSocketId && state.teacherSocketId !== socketId) {
-      throw new Error('Teacher already registered'); // Only one teacher
+      console.log('Replacing previous teacher:', state.teacherSocketId, 'with new teacher:', socketId);
+      // Clear the old teacher's state
+      state.teacherSocketId = null;
     }
     state.teacherSocketId = socketId;
     console.log('Teacher registered:', socketId);

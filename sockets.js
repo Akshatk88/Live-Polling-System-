@@ -92,11 +92,10 @@ module.exports = function registerSocketHandlers(io, socket, pollManager) {
 
   socket.on('disconnect', () => {
     try {
-      if (socket.id === pollManager.teacherSocketId) {
-        pollManager.unregisterTeacher(socket.id);
-      } else {
-        pollManager.unregisterStudent(socket.id);
-      }
+      // Try to unregister as teacher first
+      pollManager.unregisterTeacher(socket.id);
+      // Also try to unregister as student (in case it was both somehow)
+      pollManager.unregisterStudent(socket.id);
       console.log(`Socket disconnected: ${socket.id}`);
     } catch (e) {
       console.error('Disconnect error:', e.message);
