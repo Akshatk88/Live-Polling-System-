@@ -6,7 +6,7 @@ const { Server } = require('socket.io');
 const { createPollManager } = require('./pollManager');
 
 const app = express();
-const corsOrigin = process.env.CORS_ORIGIN || 'http://localhost:3000'; // Secure: Restrict to frontend URL
+const corsOrigin = process.env.CORS_ORIGIN || 'https://live-polling-system-frontend-pearl.vercel.app'; // Secure: Restrict to frontend URL
 app.use(cors({ origin: corsOrigin }));
 app.use(express.json());
 
