@@ -21,8 +21,30 @@ io.on('connection', (socket) => {
   require('./sockets')(io, socket, pollManager);
 });
 
+// Health check endpoint
 app.get('/health', (_req, res) => {
   res.json({ ok: true });
+});
+
+// Root endpoint
+app.get('/', (_req, res) => {
+  res.json({ 
+    message: 'Live Polling System Backend',
+    status: 'running',
+    endpoints: {
+      health: '/health',
+      socket: 'Socket.IO connection available'
+    }
+  });
+});
+
+// Catch-all route for any other requests
+app.get('*', (_req, res) => {
+  res.status(404).json({ 
+    error: 'Not Found',
+    message: 'This is a Socket.IO server. Please connect via Socket.IO client.',
+    availableEndpoints: ['/', '/health']
+  });
 });
 
 const PORT = process.env.PORT || 4000;
