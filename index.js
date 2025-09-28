@@ -12,13 +12,30 @@ app.use(express.json());
 
 const server = http.createServer(app);
 const io = new Server(server, {
-  cors: { origin: corsOrigin, methods: ['GET', 'POST'] }
+  cors: { 
+    origin: corsOrigin, 
+    methods: ['GET', 'POST'],
+    credentials: true
+  },
+  transports: ['websocket', 'polling'],
+  allowEIO3: true
 });
 
 const pollManager = createPollManager(io);
 
 io.on('connection', (socket) => {
+  console.log(`New connection attempt from: ${socket.handshake.address}`);
+  console.log(`Socket ID: ${socket.id}`);
   require('./sockets')(io, socket, pollManager);
+});
+
+// Add connection error handling
+io.on('connect_error', (error) => {
+  console.error('Socket.IO connection error:', error);
+});
+
+io.engine.on('connection_error', (err) => {
+  console.error('Socket.IO engine error:', err);
 });
 
 // Health check endpoint
