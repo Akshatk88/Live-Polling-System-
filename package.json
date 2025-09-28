@@ -8,8 +8,7 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "jest --runInBand",
-    "test:watch": "jest --watchAll=false --runInBand",
-    "vercel-build": "echo 'No build step required'"
+    "test:watch": "jest --watchAll=false --runInBand"
   },
   "dependencies": {
     "cors": "^2.8.5",
